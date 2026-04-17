@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JKV Global – Instruments and their Specifications</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0b1120;
+    --navy-mid: #131d30;
+    --navy-light: #1a2840;
+    --gold: #c9a84c;
+    --gold-light: #e2c06a;
+    --gold-dim: rgba(201,168,76,0.15);
+    --teal: #00c2a8;
+    --teal-dim: rgba(0,194,168,0.12);
+    --white: #f4f7fc;
+    --muted: #8a9bb5;
+    --border: rgba(255,255,255,0.07);
+    --row-hover: rgba(201,168,76,0.06);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--navy);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--white);
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--navy-mid);
+    border-bottom: 1px solid var(--border);
+    padding: 0 48px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 70px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 26px;
+    letter-spacing: 0.04em;
+    color: var(--gold);
+  }
+  .logo span { color: var(--white); }
+
+  nav { display: none; }
+
+  .header-actions { display: flex; gap: 12px; align-items: center; }
+
+  .btn-open {
+    background: var(--gold);
+    border: none;
+    color: var(--navy);
+    padding: 9px 22px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    letter-spacing: 0.02em;
+    transition: background 0.2s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-open:hover { background: var(--gold-light); }
+
+  /* ── PAGE TITLE ── */
+  .page-hero {
+    padding: 52px 48px 32px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  .page-hero h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: -0.01em;
+    margin-bottom: 8px;
+  }
+  .page-hero h1 span { color: var(--gold); }
+  .page-hero p { color: var(--muted); font-size: 15px; line-height: 1.6; }
+
+  /* ── SECTION WRAPPER ── */
+  .section {
+    max-width: 1400px;
+    margin: 0 auto 48px;
+    padding: 0 48px;
+  }
+
+  .section-label {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 18px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── TABLE CARD ── */
+  .table-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  thead { background: var(--navy-light); }
+
+  th {
+    padding: 14px 18px;
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    border-bottom: 1px solid var(--border);
+  }
+
+  th.center, td.center { text-align: center; }
+
+  /* Category divider rows */
+  .cat-row td {
+    background: var(--navy-light);
+    font-family: 'Syne', sans-serif;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--gold);
+    padding: 8px 18px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: var(--row-hover); }
+  .cat-row:hover { background: none !important; }
+
+  td {
+    padding: 16px 18px;
+    font-size: 14px;
+    white-space: nowrap;
+  }
+
+  .instrument-name {
+    font-family: 'Syne', sans-serif;
+    font-weight: 700;
+    font-size: 15px;
+    letter-spacing: 0.04em;
+    color: var(--white);
+  }
+
+  .val-positive { color: var(--teal); font-weight: 600; }
+  .val-negative { color: #e05c6f; font-weight: 600; }
+  .val-neutral  { color: var(--white); font-weight: 500; }
+
+  .leverage-pill {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.1);
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--white);
+  }
+
+  /* ── ACCOUNT TYPES GRID ── */
+  .acc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-top: 4px;
+  }
+
+  .acc-card {
+    background: var(--navy-mid);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px 20px 18px;
+    transition: border-color 0.2s, transform 0.2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .acc-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .acc-ecn::before      { background: var(--gold); }
+  .acc-diamond::before  { background: #a78bfa; }
+  .acc-platinum::before { background: #93c5fd; }
+  .acc-gold::before     { background: #fcd34d; }
+  .acc-silver::before   { background: #d1d5db; }
+  .acc-standard::before { background: var(--teal); }
+  .acc-basic::before    { background: #94a3b8; }
+
+  .acc-card:hover {
+    border-color: rgba(201,168,76,0.35);
+    transform: translateY(-2px);
+  }
+
+  .acc-type-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+  .acc-name {
+    font-family: 'Syne', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 14px;
+    color: var(--white);
+  }
+
+  .acc-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12.5px;
+    margin-bottom: 7px;
+    color: var(--muted);
+  }
+  .acc-row span:last-child { color: var(--white); font-weight: 500; }
+  .acc-row .highlight { color: var(--gold); font-weight: 600; }
+  .acc-row .teal-val { color: var(--teal); font-weight: 600; }
+
+  /* "+up" tag next to IB value */
+  .ib-wrap {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: 600;
+  }
+  .ib-tag {
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.06em;
+    background: rgba(0,194,168,0.18);
+    color: var(--teal);
+    border-radius: 4px;
+    padding: 2px 5px;
+  }
+
+  /* ── FOOTER NOTE ── */
+  .footer-note {
+    max-width: 1400px;
+    margin: 32px auto 0;
+    padding: 24px 48px 0;
+    font-size: 12px;
+    color: var(--muted);
+    line-height: 1.7;
+    border-top: 1px solid var(--border);
+  }
+
+  @media (max-width: 900px) {
+    header, .page-hero, .section, .footer-note { padding-left: 20px; padding-right: 20px; }
+    nav { display: none; }
+    .table-card { overflow-x: auto; }
+    td, th { padding: 12px 12px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ══ HEADER ══ -->
+<header>
+  <div class="logo">JKV<span> Global</span></div>
+
+  <div class="header-actions">
+    <a class="btn-open" href="https://cabinet.jkvglobal.com/register" target="_blank" rel="noopener">Open An Account</a>
+  </div>
+</header>
+
+<!-- ══ HERO ══ -->
+<div class="page-hero">
+  <h1>Elements and their <span>Specifications</span></h1>
+  <p>Competitive spreads, deep liquidity and flexible account types designed for every trader.</p>
+</div>
+
+<!-- ══ INSTRUMENTS TABLE ══ -->
+<div class="section">
+  <div class="section-label">Trading Instruments</div>
+  <div class="table-card">
+    <table>
+      <thead>
+        <tr>
+          <th style="width:160px">Instrument</th>
+          <th class="center">Swap Long</th>
+          <th class="center">Swap Short</th>
+          <th class="center">Leverage Info</th>
+          <th class="center">Max Lot</th>
+          <th class="center">Min Lot</th>
+        </tr>
+      </thead>
+      <tbody>
+
+        <!-- ── Forex ── -->
+        <tr class="cat-row"><td colspan="6">Forex — Major Currency Pairs</td></tr>
+        <tr>
+          <td><div class="instrument-name">EUR/USD</div></td>
+          <td class="center"><span class="val-positive">+10.18</span></td>
+          <td class="center"><span class="val-positive">+2.72</span></td>
+          <td class="center"><span class="leverage-pill">1:400</span></td>
+          <td class="center val-neutral">20</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">EUR/GBP</div></td>
+          <td class="center"><span class="val-negative">-9.52</span></td>
+          <td class="center"><span class="val-positive">+2.76</span></td>
+          <td class="center"><span class="leverage-pill">1:400</span></td>
+          <td class="center val-neutral">20</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">EUR/JPY</div></td>
+          <td class="center"><span class="val-negative">-3.03</span></td>
+          <td class="center"><span class="val-negative">-13.46</span></td>
+          <td class="center"><span class="leverage-pill">1:400</span></td>
+          <td class="center val-neutral">20</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">GBP/JPY</div></td>
+          <td class="center"><span class="val-negative">-10.41</span></td>
+          <td class="center"><span class="val-negative">-29.80</span></td>
+          <td class="center"><span class="leverage-pill">1:400</span></td>
+          <td class="center val-neutral">20</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">GBP/USD</div></td>
+          <td class="center"><span class="val-positive">+2.03</span></td>
+          <td class="center"><span class="val-negative">-2.29</span></td>
+          <td class="center"><span class="leverage-pill">1:400</span></td>
+          <td class="center val-neutral">20</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">USD/JPY</div></td>
+          <td class="center"><span class="val-negative">-8.17</span></td>
+          <td class="center"><span class="val-negative">-20.91</span></td>
+          <td class="center"><span class="leverage-pill">1:400</span></td>
+          <td class="center val-neutral">20</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+
+        <!-- ── Metals ── -->
+        <tr class="cat-row"><td colspan="6">Metals</td></tr>
+        <tr>
+          <td><div class="instrument-name">XAU/USD</div></td>
+          <td class="center"><span class="val-negative">-67.67</span></td>
+          <td class="center"><span class="val-positive">+25.45</span></td>
+          <td class="center"><span class="leverage-pill">1:300</span></td>
+          <td class="center val-neutral">25</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">XAG/USD</div></td>
+          <td class="center"><span class="val-negative">-2.64</span></td>
+          <td class="center"><span class="val-positive">+0.81</span></td>
+          <td class="center"><span class="leverage-pill">1:300</span></td>
+          <td class="center val-neutral">25</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+
+        <!-- ── Crypto ── -->
+        <tr class="cat-row"><td colspan="6">Cryptocurrency</td></tr>
+        <tr>
+          <td><div class="instrument-name">BTC/USD</div></td>
+          <td class="center"><span class="val-negative">-15539.29</span></td>
+          <td class="center"><span class="val-negative">-15539.29</span></td>
+          <td class="center"><span class="leverage-pill">1:10</span></td>
+          <td class="center val-neutral">5</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+        <tr>
+          <td><div class="instrument-name">ETH/USD</div></td>
+          <td class="center"><span class="val-negative">-363.97</span></td>
+          <td class="center"><span class="val-negative">-363.97</span></td>
+          <td class="center"><span class="leverage-pill">1:10</span></td>
+          <td class="center val-neutral">5</td>
+          <td class="center val-neutral">0.01</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ══ ACCOUNT TYPES ══ -->
+<div class="section">
+  <div class="section-label">Account Types</div>
+  <div class="acc-grid">
+
+    <!-- ECN -->
+    <div class="acc-card acc-ecn">
+      <div class="acc-type-badge">Type 1 · ECN</div>
+      <div class="acc-name">ECN</div>
+      <div class="acc-row"><span>Spread</span><span class="highlight">Raw</span></div>
+      <div class="acc-row"><span>Commission</span><span>$10</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span class="highlight">Up to $5</span>
+      </div>
+    </div>
+
+    <!-- Diamond -->
+    <div class="acc-card acc-diamond">
+      <div class="acc-type-badge">Type 2 · 1 PIP</div>
+      <div class="acc-name">Diamond</div>
+      <div class="acc-row"><span>Spread</span><span class="highlight">Raw + 10</span></div>
+      <div class="acc-row"><span>Commission</span><span>$0</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span class="highlight">Up to $5</span>
+      </div>
+    </div>
+
+    <!-- Platinum -->
+    <div class="acc-card acc-platinum">
+      <div class="acc-type-badge">Type 3 · 1.5 PIP</div>
+      <div class="acc-name">Platinum</div>
+      <div class="acc-row"><span>Spread</span><span class="highlight">Raw + 15</span></div>
+      <div class="acc-row"><span>Commission</span><span>$0</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span class="highlight">Up to $10</span>
+      </div>
+    </div>
+
+    <!-- Gold -->
+    <div class="acc-card acc-gold">
+      <div class="acc-type-badge">Type 4 · 2 PIP</div>
+      <div class="acc-name">Gold</div>
+      <div class="acc-row"><span>Spread</span><span class="highlight">Raw + 20</span></div>
+      <div class="acc-row"><span>Commission</span><span>$0</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span class="highlight">Up to $15</span>
+      </div>
+    </div>
+
+    <!-- Silver -->
+    <div class="acc-card acc-silver">
+      <div class="acc-type-badge">Type 5 · 2.5 PIP</div>
+      <div class="acc-name">Silver</div>
+      <div class="acc-row"><span>Spread</span><span class="highlight">Raw + 25</span></div>
+      <div class="acc-row"><span>Commission</span><span>$0</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span class="highlight">Up to $20</span>
+      </div>
+    </div>
+
+    <!-- Standard -->
+    <div class="acc-card acc-standard">
+      <div class="acc-type-badge">Type 6 · 3 PIP</div>
+      <div class="acc-name">Standard</div>
+      <div class="acc-row"><span>Spread</span><span class="teal-val">Raw + 30</span></div>
+      <div class="acc-row"><span>Commission</span><span>$0</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span class="teal-val">Up to $25</span>
+      </div>
+    </div>
+
+    <!-- Basic -->
+    <div class="acc-card acc-basic">
+      <div class="acc-type-badge">Type 7 · 3.5 PIP</div>
+      <div class="acc-name">Basic</div>
+      <div class="acc-row"><span>Spread</span><span>Raw + 35</span></div>
+      <div class="acc-row"><span>Commission</span><span>$0</span></div>
+      <div class="acc-row">
+        <span>IB Commission</span>
+        <span>Up to $30</span>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══ LEGAL DISCLAIMER FOOTER ══ -->
+<footer class="legal-footer">
+  <div class="legal-inner">
+
+    <div class="legal-top">
+      <div class="legal-brand">
+        <div class="legal-logo">JKV<span> Global</span></div>
+        <div class="legal-tagline">© 2026 JKV Global. All Rights Reserved.</div>
+      </div>
+      <div class="legal-badge">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Proprietary &amp; Confidential
+      </div>
+    </div>
+
+    <div class="legal-divider"></div>
+
+    <div class="legal-section">
+      <div class="legal-section-title"> Intellectual Property &amp; Copyright Notice</div>
+      <p>All data, figures, rates, spreads, swap values, leverage parameters, account structures, commission models, and any other information contained in this document are the <strong>exclusive proprietary information and intellectual property of JKV Global</strong>. This material is protected under applicable intellectual property laws, including but not limited to copyright law, trade secret law, and unfair competition statutes.</p>
+      <p style="margin-top:10px">Unauthorised reproduction, distribution, republication, resale, transmission, modification, adaptation, or any other use of this material — in whole or in part — whether in print, digital, electronic, or any other form, <strong>is strictly prohibited without the prior written consent of JKV Global</strong>. Any such unauthorised use constitutes an infringement of JKV Global's intellectual property rights and may result in civil and/or criminal liability.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-title"> Prohibited Use &amp; Enforcement</div>
+      <p>JKV Global actively monitors for unauthorised use, reproduction, or misrepresentation of its proprietary data. Any individual, entity, broker, or organisation found to be using, copying, distributing, or passing off JKV Global's proprietary information as their own — without explicit written authorisation — will be subject to <strong>immediate legal action</strong>, including but not limited to claims for damages, injunctive relief, account of profits, and recovery of legal costs. JKV Global reserves all rights to pursue remedies to the fullest extent permitted by law.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-title"> Data Accuracy &amp; Market Risk Disclaimer</div>
+      <p>The swap rates, spreads, leverage ratios, and commission structures presented herein are indicative figures provided by JKV Global for informational purposes only and are subject to change without prior notice due to market conditions, liquidity constraints, or internal policy revisions. Past performance or historical figures are not indicative of future results. Trading in foreign exchange (forex), contracts for difference (CFDs), metals, and cryptocurrency derivatives involves a <strong>significant risk of loss</strong> and may not be suitable for all investors. You should carefully consider your investment objectives, level of experience, and risk appetite before engaging in any trading activity.</p>
+    </div>
+
+    <div class="legal-section">
+      <div class="legal-section-title"> Contact &amp; Authorisation Requests</div>
+      <p>For licensing enquiries, authorised use requests, or to report unauthorised use of JKV Global's proprietary information, please contact JKV Global directly via the official website at <strong>jkvglobal.com</strong>. Only written authorisations issued directly by an authorised representative of JKV Global shall constitute valid permission for use of this material.</p>
+    </div>
+
+    <div class="legal-divider"></div>
+
+    <div class="legal-bottom">
+      <span>© 2026 JKV Global — All data is proprietary and confidential. Unauthorised use is a violation of applicable law.</span>
+      <span class="legal-watermark">JKV GLOBAL PROPRIETARY</span>
+    </div>
+
+  </div>
+</footer>
+
+<style>
+  .legal-footer {
+    background: #080e1a;
+    border-top: 1px solid rgba(201,168,76,0.25);
+    margin-top: 20px;
+    padding: 48px 0 32px;
+  }
+  .legal-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 48px;
+  }
+  .legal-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 28px;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .legal-logo {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 22px;
+    color: var(--gold);
+  }
+  .legal-logo span { color: var(--white); }
+  .legal-tagline {
+    font-size: 12px;
+    color: var(--muted);
+    margin-top: 4px;
+  }
+  .legal-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(201,168,76,0.1);
+    border: 1px solid rgba(201,168,76,0.3);
+    color: var(--gold);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    border-radius: 6px;
+  }
+  .legal-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 24px 0;
+  }
+  .legal-section {
+    margin-bottom: 22px;
+  }
+  .legal-section-title {
+    font-family: 'Syne', sans-serif;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .legal-section p {
+    font-size: 12px;
+    color: #6e7f99;
+    line-height: 1.8;
+  }
+  .legal-section strong {
+    color: #9aafc8;
+    font-weight: 600;
+  }
+  .legal-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    font-size: 11px;
+    color: #4a5a72;
+  }
+  .legal-watermark {
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.15em;
+    font-size: 10px;
+    color: rgba(201,168,76,0.3);
+  }
+  @media (max-width: 900px) {
+    .legal-inner { padding: 0 20px; }
+    .legal-bottom { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+
+</body>
+</html>
