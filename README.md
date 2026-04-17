@@ -4,7 +4,7 @@ JKV Global Trading Instruments Report
 This repository contains the official trading instruments 
 specification report for JKV Global.
 ## Live Report
-https://your-username.github.io/instruments-specifications/
+https://rupalimulik.github.io/instruments-specifications/
 ## Contents
 - Trading instruments (Forex, Metals, Crypto)
 - Account types and IB commission structure
